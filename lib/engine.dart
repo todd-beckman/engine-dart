@@ -1,3 +1,4 @@
 library engine;
 
-export 'src/engine_module.dart';
+export 'src/engine/engine_primitive.dart';
+export 'src/engine/render_engine.dart';
