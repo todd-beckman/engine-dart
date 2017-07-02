@@ -5,11 +5,10 @@ import 'actions.dart';
 import 'state.dart';
 
 /// A [Store] responds to [Action]s and streams the changed [State]
-abstract class Store<TState extends State>
-    extends ActionCollection {
-
+abstract class Store<TState extends State> extends ActionCollection {
   TState _state;
-  StreamController<TState> _triggerController = new StreamController<TState>.broadcast();
+  StreamController<TState> _triggerController =
+      new StreamController<TState>.broadcast();
 
   Store() {
     manageStreamController(_triggerController);

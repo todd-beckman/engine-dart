@@ -1,0 +1,24 @@
+name: engine_dart_examples
+version: 0.0.1
+description: examples for engine_dart
+author: todd beckman
+
+environment:
+  sdk: '>=1.24.0 <2.0.0'
+
+dependencies:
+  engine_dart:
+    path: ..
+  browser: ^0.10.0
+  logging: ^0.11.3
+  react: ^3.1.1
+  w_common: ^1.6.1
+
+dev_dependencies:
+  browser_detect: any
+  dart_dev: ^1.7.7
+  dart_style: ^0.2.11
+  test: ^0.12.18
+
+transformers:
+  - $dart2js

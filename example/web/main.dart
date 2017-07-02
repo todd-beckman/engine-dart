@@ -7,17 +7,14 @@ import 'package:react/react_client.dart' as react_client;
 
 import 'package:engine_dart/engine.dart';
 
-main() async {
+Future<Null> main() async {
   react_client.setClientConfiguration();
   hierarchicalLoggingEnabled = true;
 
-  var engine = new Engine();
-  engine.load();
+  var engine = new RenderEngine();
 
-  react_dom.render(engine.components.content(), querySelector('#body'));
-
-  while (true) {
-    await new Future.delayed(new Duration(milliseconds: 10));
-    engine.api.step();
+  bool shouldContinue = true;
+  while (shouldContinue) {
+    window.requestAnimationFrame((_) => engine.step(null));
   }
 }

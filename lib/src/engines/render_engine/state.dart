@@ -5,15 +5,14 @@ import 'package:engine_dart/engine.dart';
 import 'renderable.dart';
 
 /// The immutable state of the current UI.
-class RenderEngineState extends EngineState {
+class RenderEngineState extends EngineState implements BuiltState {
   BuiltList<Renderable> assets;
 
   RenderEngineState.initial() {
     assets = new BuiltList<Renderable>();
   }
 
-  RenderEngineState._({BuiltList<Renderable> assets})
-    : this.assets = assets;
+  RenderEngineState._({BuiltList<Renderable> assets}) : this.assets = assets;
 
   factory RenderEngineState.build(RenderEngineStateBuilder builder) {
     return builder.build();
@@ -21,8 +20,7 @@ class RenderEngineState extends EngineState {
 
   @override
   RenderEngineStateBuilder toBuilder() {
-    return new RenderEngineStateBuilder()
-      ..assets = assets.toBuilder();
+    return new RenderEngineStateBuilder()..assets = assets.toBuilder();
   }
 }
 

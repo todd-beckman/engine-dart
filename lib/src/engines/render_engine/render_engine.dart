@@ -4,12 +4,13 @@ import 'package:engine_dart/engine.dart';
 
 import 'state.dart';
 
-class RenderEngineStore extends EngineStore<RenderEngineState> {
+class RenderEngine extends EngineStore<RenderEngineState> {
   // TODO: don't expose the context to consumers; a limited API has better guarantees
   CanvasRenderingContext2D _context;
 
-  RenderEngineStore() {
-    CanvasElement canvasElement = document.querySelector('#canvas') as CanvasElement;
+  RenderEngine() {
+    CanvasElement canvasElement =
+        document.querySelector('#canvas') as CanvasElement;
     _context = canvasElement.context2D;
   }
 
