@@ -1,5 +1,6 @@
-import 'dart:html';
+import 'context.dart';
+import 'state.dart';
 
 abstract class Renderable {
-  void render(CanvasRenderingContext2D context);
+  void render(RenderingContext context, RenderEngineState state);
 }
