@@ -10,7 +10,6 @@ class FpsComponent implements Renderable {
   @override
   void render(RenderingContext context, RenderEngineState state) {
     _monitor.step(null);
-    context.font = '14pt Cambria';
     context.fillText(_fpsToString(), 3, state.height - 3);
   }
 

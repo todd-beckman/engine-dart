@@ -18,11 +18,12 @@ Future<Null> main() async {
 
   var fps = new FpsMonitor();
 
-  engine.addRenderable(new FpsComponent(fps));
-
   var canvas = renderCanvas()..renderEngine = engine;
 
   react_dom.render(canvas(), querySelector('#body'));
 
-  await engine.load().then((_) => engine.step(null));
+  await engine.load().then((_) {
+    engine.addRenderable(new FpsComponent(fps));
+    engine.step(null);
+  });
 }
