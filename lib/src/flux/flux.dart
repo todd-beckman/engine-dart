@@ -21,7 +21,6 @@ abstract class Store<TState extends State> extends ActionCollection {
       _triggerController.stream.listen(callback);
 
   void trigger(TState newState) {
-    _state?.invalidate();
     _state = newState;
     _triggerController.add(newState);
   }

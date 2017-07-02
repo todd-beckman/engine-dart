@@ -16,7 +16,9 @@ Future<Null> main() async {
 
   var engine = new RenderEngine();
 
-  engine.addRenderable(new FpsComponent());
+  var fps = new FpsMonitor();
+
+  engine.addRenderable(new FpsComponent(fps));
 
   var canvas = renderCanvas()..renderEngine = engine;
 

@@ -11,7 +11,6 @@ import 'state.dart';
 Logger _logger = new Logger('render engine');
 
 class RenderEngine extends EngineStore<RenderEngineState> {
-  // TODO: don't expose the context to consumers; a limited API has better guarantees
   CanvasRenderingContext2D _canvasContext;
   RenderingContext _renderingContext;
 
@@ -21,19 +20,13 @@ class RenderEngine extends EngineStore<RenderEngineState> {
       new StreamController<Null>.broadcast();
 
   Action<Renderable> addRenderable = new Action<Renderable>();
+  Action<Renderable> removeRenderable = new Action<Renderable>();
 
-  RenderEngine() : super() {
-    manageStreamController(_didResizeController);
+  RenderEngine() {
     [
       addRenderable,
-      step,
+      removeRenderable,
     ].forEach(manageAction);
-
-    [
-      addRenderable.listen(_addRenderable),
-      step.listen((_) => onStep()),
-      window.onResize.listen(_onWindowResize),
-    ].forEach(manageStreamSubscription);
   }
 
   /// Event fired when the window resizes.
@@ -42,18 +35,22 @@ class RenderEngine extends EngineStore<RenderEngineState> {
   /// most up-to-date dimensions.
   Stream<Null> get didResize => _didResizeController.stream;
 
-  Future<Null> load() async {
-    _logger.info('loading');
+  @override
+  Future<Null> onLoad() async {
     CanvasElement canvasElement =
         document.querySelector('.canvas') as CanvasElement;
     _canvasContext = canvasElement.context2D;
     _renderingContext = new RenderingContext(_canvasContext);
+
+    [
+      addRenderable.listen(_addRenderable),
+      removeRenderable.listen(_removeRenderable),
+      window.onResize.listen(_onWindowResize),
+    ].forEach(manageStreamSubscription);
   }
 
   @override
   void onStep() {
-    _logger.info('rendering');
-
     _renderingContext.fillRect(0, 0, state.width, state.height,
         color: canvasColor);
 
@@ -62,12 +59,15 @@ class RenderEngine extends EngineStore<RenderEngineState> {
       asset.render(_renderingContext, state);
     });
 
-    _canvasContext.restore();
     window.requestAnimationFrame((_) => onStep());
   }
 
   void _addRenderable(Renderable renderable) {
     trigger((state.toBuilder()..assets.add(renderable)).build());
+  }
+
+  void _removeRenderable(Renderable renderable) {
+    trigger((state.toBuilder()..assets.remove(renderable)).build());
   }
 
   void _onWindowResize(e) {

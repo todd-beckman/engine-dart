@@ -29,10 +29,6 @@ class RenderEngineState extends EngineState implements BuiltState {
   })
       : _assets = assets;
 
-  factory RenderEngineState.build(RenderEngineStateBuilder builder) {
-    return builder.build();
-  }
-
   BuiltList<Renderable> get assets => _assets;
 
   @override

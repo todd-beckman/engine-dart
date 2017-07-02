@@ -6,9 +6,9 @@ import 'models.dart';
 class RenderingContext {
   CanvasRenderingContext2D _context;
 
-  RenderingContext(this._context);
-
-  CanvasRenderingContext2D get context => _context;
+  RenderingContext(this._context) {
+    font = defaultFont;
+  }
 
   set font(String newFont) => _context.font = newFont;
 

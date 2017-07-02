@@ -1,7 +1,7 @@
 import 'package:engine_dart/flux.dart';
 
 class FpsState extends State {
-  final double framesPerSecond;
+  final int framesPerSecond;
 
-  FpsState({this.framesPerSecond: 0.0});
+  FpsState({this.framesPerSecond: 0});
 }

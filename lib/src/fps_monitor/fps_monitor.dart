@@ -5,15 +5,11 @@ import 'state.dart';
 
 var _logger = new Logger('fps monitor');
 
-const int fpsRefreshRateInSeconds = 3;
-const Duration fpsRefreshRate =
-    const Duration(seconds: fpsRefreshRateInSeconds);
-
 class FpsMonitor extends Store<FpsState> {
   final Action<Null> step = new Action<Null>();
 
   DateTime _lastKeyFrame;
-  int stepCountSinceKeyFrame = 0;
+  int _stepsSinceKeyFrame = 0;
 
   FpsMonitor() {
     _lastKeyFrame = new DateTime.now();
@@ -25,15 +21,13 @@ class FpsMonitor extends Store<FpsState> {
   FpsState get initialState => new FpsState();
 
   void _stepHandler(_) {
-    _logger.info('fps');
-    stepCountSinceKeyFrame++;
+    _stepsSinceKeyFrame++;
 
     var now = new DateTime.now();
-    if (now.difference(_lastKeyFrame) >= fpsRefreshRate) {
-      var framesPerSecond = stepCountSinceKeyFrame.toDouble() /
-          fpsRefreshRateInSeconds.toDouble();
-
-      _logger.info('updating fps to ${framesPerSecond}');
+    if (now.difference(_lastKeyFrame).inSeconds >= 1) {
+      var framesPerSecond = _stepsSinceKeyFrame;
+      _stepsSinceKeyFrame = 0;
+      _lastKeyFrame = now;
       trigger(new FpsState(framesPerSecond: framesPerSecond));
     }
   }

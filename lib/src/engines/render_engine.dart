@@ -1,3 +1,5 @@
+library engine.render;
+
 export 'render_engine/canvas.dart';
 export 'render_engine/constants.dart';
 export 'render_engine/context.dart';

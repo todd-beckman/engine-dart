@@ -1,17 +1,13 @@
+import 'package:meta/meta.dart';
+
 /// A [State] is intended as the parent to an immutable structure representing the
 /// public API for the flux store.
 ///
 /// All fields of a [State] should be immutable. Use of built_collection is
 /// recommended but not required. For complex states, a [BuiltState] is
 /// recommend.
-abstract class State {
-  bool get invalidated => _invalidated;
-  bool _invalidated = false;
-
-  void invalidate() {
-    _invalidated = true;
-  }
-}
+@immutable
+abstract class State {}
 
 /// A [State] which follows the builder pattern.
 ///
