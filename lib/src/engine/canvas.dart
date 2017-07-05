@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:react/react_client.dart';
 import 'package:over_react/over_react.dart';
 
-import 'render_engine.dart';
+import 'engine.dart';
 
 @Factory()
 UiFactory<RenderCanvasProps> renderCanvas;
@@ -11,7 +11,7 @@ UiFactory<RenderCanvasProps> renderCanvas;
 @Props()
 class RenderCanvasProps extends UiProps {
   @requiredProp
-  RenderEngine renderEngine;
+  EngineStore engine;
 }
 
 @Component()
@@ -20,7 +20,7 @@ class RenderCanvasComponent extends UiComponent<RenderCanvasProps> {
 
   @override
   void componentDidMount() {
-    _subs.add(props.renderEngine.didResize.listen((_) => redraw()));
+    _subs.add(props.engine.didResize.listen((_) => redraw()));
   }
 
   @override
@@ -33,7 +33,7 @@ class RenderCanvasComponent extends UiComponent<RenderCanvasProps> {
   ReactElement render() {
     return (Dom.canvas()
       ..className = 'canvas'
-      ..width = props.renderEngine.state.width
-      ..height = props.renderEngine.state.height)();
+      ..width = props.engine.state.width
+      ..height = props.engine.state.height)();
   }
 }

@@ -1,11 +1,24 @@
 import 'package:logging/logging.dart';
-import 'package:engine_dart/flux.dart';
-
-import 'state.dart';
+import 'package:engine_dart/engine.dart';
 
 var _logger = new Logger('fps monitor');
 
-class FpsMonitor extends Store<FpsState> {
+class FpsState extends RenderableState {
+  final int framesPerSecond;
+
+  FpsState({this.framesPerSecond: 0});
+
+  @override
+  void render(RenderingContext context, EngineState state) {
+    context.fillText(_fpsToString(), 3, state.height - 3);
+  }
+
+  String _fpsToString() {
+    return 'FPS: ${framesPerSecond}';
+  }
+}
+
+class FpsMonitor extends Store<FpsState> with RenderableMixin<FpsState> {
   final Action<Null> step = new Action<Null>();
 
   DateTime _lastKeyFrame;

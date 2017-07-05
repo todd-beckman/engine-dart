@@ -1,17 +1,17 @@
-import 'package:meta/meta.dart';
+part of engine.flux;
 
-/// A [State] is intended as the parent to an immutable structure representing the
-/// public API for the flux store.
+/// A [State] is intended as the parent to an immutable structure representing
+/// the public API for the flux store.
 ///
-/// All fields of a [State] should be immutable. Use of built_collection is
-/// recommended but not required. For complex states, a [BuiltState] is
-/// recommend.
+/// Use of built_collection for collections is recommended but not required.
+/// For complex states, a [BuiltState] is recommend.
 @immutable
 abstract class State {}
 
 /// A [State] which follows the builder pattern.
 ///
-/// Built a new [StateBuilder] from this one, and use that to build a new [BuiltState].
+/// Build a new [StateBuilder] from this one, and use that to build a new 
+/// [BuiltState].
 abstract class BuiltState extends State {
   StateBuilder toBuilder();
 }

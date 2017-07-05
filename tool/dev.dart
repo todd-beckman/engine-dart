@@ -17,7 +17,7 @@ Future main(List<String> args) async {
   // config.coverage
   // config.docs
   // config.examples
-  config.format..paths = ['lib', 'example'];
+  config.format..paths = ['lib/engine.dart', 'example/web/main.dart'];
   // config.test
 
   await dev(args);

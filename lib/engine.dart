@@ -1,4 +1,6 @@
 library engine;
 
-export 'src/engines/engine_primitive.dart';
-export 'src/engines/render_engine.dart';
+// TODO: split these exports before releasing
+
+export 'src/engine.dart';
+export 'src/flux.dart';

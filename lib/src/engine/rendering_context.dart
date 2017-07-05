@@ -16,9 +16,15 @@ class RenderingContext {
     String text,
     int x,
     int y, {
-    Color color: textColor,
+    String font,
     int maxWidth,
+    Color color: textColor,
   }) {
+    if (font != null) {
+      this.font = font;
+    } else if (_context.font != defaultFont) {
+      this.font = defaultFont;
+    }
     _context.setFillColorRgb(color.r, color.g, color.b);
     _context.fillText(text, x, y, maxWidth);
   }
